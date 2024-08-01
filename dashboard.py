@@ -6,9 +6,8 @@ import plotly.express as px
 st.set_page_config(layout="wide")
 
 # Carregar os dados da planilha
-file_path =  r'clientes_v2.xlsx'
+file_path =  r'C:\Users\Faturamento\OneDrive - GRUPO KANTRO\Documentos\Python\clientes_v2.xlsx'
 clientes_df = pd.read_excel(file_path)
-
 
 # Remover NaNs das colunas que serão usadas como filtros
 clientes_df['Nome Prestador'].fillna('Desconhecido', inplace=True)
@@ -17,6 +16,10 @@ clientes_df['Período'].fillna('Desconhecido', inplace=True)
 clientes_df['Status Faturamento'].fillna('Desconhecido', inplace=True)
 clientes_df['Objeto'].fillna('Desconhecido', inplace=True)
 clientes_df['Razão Social do Tomador'].fillna('Desconhecido', inplace=True)
+
+# Converter as colunas de valores para o formato de moeda brasileira
+clientes_df['Valor Mensal'] = clientes_df['Valor Mensal'].apply(lambda x: f"R$ {x:,.2f}")
+clientes_df['Valor'] = clientes_df['Valor'].apply(lambda x: f"R$ {x:,.2f}")
 
 # Configurar o título do dashboard
 st.title('Dashboard de Faturamento')
@@ -83,8 +86,10 @@ st.dataframe(filtered_data)
 # Gráfico de pizza: Contagem de registros por Prestador
 fig_pizza_prestador = px.pie(filtered_data, names='Nome Prestador')
 
-# Gráfico de barras: Valor total por Prestador
-valor_por_prestador = filtered_data.groupby('Nome Prestador')['Valor'].sum().reset_index()
+# Gráfico de barras: Valor total por Prestador (convertendo valores de volta para números)
+valor_por_prestador = filtered_data.copy()
+valor_por_prestador['Valor'] = valor_por_prestador['Valor'].replace('[R$,]', '', regex=True).astype(float)
+valor_por_prestador = valor_por_prestador.groupby('Nome Prestador')['Valor'].sum().reset_index()
 fig_valor_por_prestador = px.bar(valor_por_prestador, x='Valor', y='Nome Prestador', orientation='h')
 
 # Gráfico de pizza: Valor por Medição
