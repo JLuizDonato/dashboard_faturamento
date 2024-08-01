@@ -6,7 +6,7 @@ import plotly.express as px
 st.set_page_config(layout="wide")
 
 # Carregar os dados da planilha
-file_path =  r'C:\Users\Faturamento\OneDrive - GRUPO KANTRO\Documentos\Python\clientes_v2.xlsx'
+file_path =  r'clientes_v2.xlsx'
 clientes_df = pd.read_excel(file_path)
 
 # Remover NaNs das colunas que serão usadas como filtros
