@@ -20,6 +20,7 @@ clientes_df['Razão Social do Tomador'].fillna('Desconhecido', inplace=True)
 # Converter as colunas de valores para o formato de moeda brasileira
 clientes_df['Valor Mensal'] = clientes_df['Valor Mensal'].apply(lambda x: f"R$ {x:,.2f}")
 clientes_df['Valor'] = clientes_df['Valor'].apply(lambda x: f"R$ {x:,.2f}")
+clientes_df['Faturar Após Medição'] = clientes_df['Valor'].apply(lambda x: f"R$ {x:,.2f}")
 
 # Configurar o título do dashboard
 st.title('Dashboard de Faturamento')
