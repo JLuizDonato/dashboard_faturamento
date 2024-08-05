@@ -42,18 +42,17 @@ medicao = st.sidebar.multiselect(
     default=sorted(clientes_df['Status Mediçao'].unique())
 )
 
-# Filtro por Período
-periodo = st.sidebar.multiselect(
-    'Período',
-    options=sorted(clientes_df['Período'].unique()),
-    default=sorted(clientes_df['Período'].unique())
-)
-
 # Filtro por Status Faturamento
 status_faturamento = st.sidebar.multiselect(
     'Status Faturamento',
     options=sorted(clientes_df['Status Faturamento'].unique()),
     default=sorted(clientes_df['Status Faturamento'].unique())
+)
+# Filtro por Período
+periodo = st.sidebar.multiselect(
+    'Período',
+    options=sorted(clientes_df['Período'].unique()),
+    default=sorted(clientes_df['Período'].unique())
 )
 
 # Filtro por Objeto
