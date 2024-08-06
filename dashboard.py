@@ -21,6 +21,9 @@ clientes_df['Razão Social do Tomador'].fillna('Desconhecido', inplace=True)
 clientes_df['Valor Mensal'] = clientes_df['Valor Mensal'].apply(lambda x: f"R$ {x:,.2f}")
 clientes_df['Valor'] = clientes_df['Valor'].apply(lambda x: f"R$ {x:,.2f}")
 
+# Remover colunas indesejadas
+colunas_para_remover = ['Faturar Após Medição', 'EMPR', 'Chave']
+clientes_df.drop(columns=colunas_para_remover, inplace=True)
 
 # Configurar o título do dashboard
 st.title('Dashboard de Faturamento')
